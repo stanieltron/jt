@@ -1,0 +1,69 @@
+package javatrader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.*;
+import org.apache.xmlbeans.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+public class ReadExcelFile
+
+{
+ 
+public ArrayList<ArrayList<Double>> ma() throws InvalidFormatException, IOException{
+   
+ ArrayList<ArrayList<Double>> dataa = new ArrayList<ArrayList<Double>>();
+ 
+ FileInputStream fis = null;
+    fis = new FileInputStream("D:/ym3.xlsx");
+
+    XSSFWorkbook workbook = new XSSFWorkbook(fis);
+    XSSFSheet sheet = workbook.getSheetAt(0);
+    
+    int k = 1;
+    dataa.add(new ArrayList<Double>());
+    
+    Iterator rows = sheet.rowIterator();
+    while (rows.hasNext()) {
+        XSSFRow row1 = (XSSFRow) rows.next();
+        Iterator cells = row1.cellIterator();
+         
+        int i = 0;
+        
+        while (cells.hasNext()) {
+         
+         if (k<=i ){
+           
+           dataa.add(new ArrayList());
+           k++;
+          }
+          
+            XSSFCell cell1 = (XSSFCell) cells.next();
+           
+            dataa.get(i).add(Double.parseDouble(cell1.toString()));
+            
+            i++;
+        }
+    }
+    
+    return dataa;
+}
+}
+ 
